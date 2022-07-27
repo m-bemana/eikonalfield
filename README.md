@@ -2,7 +2,7 @@
 
 
 <p align="center">
-<img src = "https://user-images.githubusercontent.com/69102582/177169284-f020de1a-e7de-45da-9768-c956ec225b0a.gif" width="1000">
+<img src = "https://user-images.githubusercontent.com/69102582/177169284-f020de1a-e7de-45da-9768-c956ec225b0a.gif" width=100%>
 </p>
 
 ## Installation
@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 ## Dataset
 
-<img src = "https://user-images.githubusercontent.com/69102582/179800272-fd37f884-0db0-4f09-928e-1853ac593e53.png" width="1000">
+<img src = "https://user-images.githubusercontent.com/69102582/179800272-fd37f884-0db0-4f09-928e-1853ac593e53.png" width=100%>
 
 
 * [``Ball``](https://eikonalfield.mpi-inf.mpg.de//datasets/Ball.zip)  
@@ -40,7 +40,7 @@ pip install -r requirements.txt
 * [``WineGlass``](https://eikonalfield.mpi-inf.mpg.de//datasets/WineGlass.zip)
 
 Each dataset contains the captured images and a short video of the scene.
-In the `captured images` folder, we provide the images with the original 4K resolution and a smaller resolution with the estimated camera poses using the COLMAP and [LLFF code](https://github.com/fyusion/llff). In the `captured video` folder, the video frames with their estimated camera poses are located.  
+In the `captured images` folder, we provide the images with the original 4K resolution and a smaller resolution with the estimated camera poses using the COLMAP and [LLFF code](https://github.com/fyusion/llff). In the `captured video` folder, the video frames with their estimated camera poses are provided.  
 
 
 ## Training
@@ -62,7 +62,7 @@ In the `captured images` folder, we provide the images with the original 4K reso
    <details>
    <summary>  (Click to expand) In this step, 1/10 of the training images are displayed in order to mark a few points at the extent of the transparent object. </summary>   
 
-  ![bounding_box](https://user-images.githubusercontent.com/69102582/178770875-71b40783-bfa1-454a-a431-4e06676c9aaf.png)
+    <img src = "https://user-images.githubusercontent.com/69102582/178770875-71b40783-bfa1-454a-a431-4e06676c9aaf.png" width=100%>
 
 
    </details>   
@@ -93,7 +93,7 @@ Please run the ``render_model.py`` with different modes to render the learned mo
                                    # use 2 to render the output of step 4 (Complete model with the inside NeRF) 
            --render_test           # rendering the test set images
            --render_video          # rendering a video from a precomputed path
-           --render_from_path  data\Ball\video_path    # rendering a video from a specified path                      
+           --render_from_path      # rendering a video from a specified path                      
 ```
 ## Models
 
@@ -105,7 +105,7 @@ Please find below our results and pre-trained  model for each scene:
 
 Each scene contains the following folders:
 
-* ``model_weights``   --> pre-trained model
+* ``model_weights``   --> the pre-trained model
 * ``bounding_box``   ---> the parameters of the bounding box 
 * ``masked_regions`` ---> the masked images identifying the regions crossing the bounding box in each view
 * ``rendered_from_a_path``  ---> the rendered video result along the camera trajectory of the real video capture 
@@ -129,13 +129,13 @@ $𝑆(𝑥)=\frac{1}{1+𝑒^{−𝑥}}$   is the sigmoid function and $\beta$ is
 ### Voxel grid
 In our IoR optimizations we first need to smooth the learned radiance field; however, explicitly smoothing an MLP-based radiance field is not straightforward, 
 we instead fit a uniform 3D grid to the learned radiance field. We then band-limit the grid in the Fourier domain using a Gaussian blur kernel to obtain the coarse-to-fine radiance field.
-Note we fit the voxel grid to the NeRF coarse model rather than the fine model one to avoid aliasing and for the spherical captures, we set a limit the scene far bound to 2.5 in order to provide a reasonable texture quality.
+Note we fit the voxel grid to the NeRF coarse model rather than the fine one to avoid aliasing, and for the spherical captures, we limit the scene far bound to 2.5.
 
 ### IoR optimization
 Since we have a complete volume rendering model in the form of ODEs, we use a differentiable ODE solvers package provided by the [Neural ODE](https://github.com/rtqichen/torchdiffeq) to backpropagate through the ODEs. Moreover, using this package our training proceeds in a memory independent of the step count which allows the processing of more rays (as large as 32k rays) in each iteration.  
 
 ### IoR model
-When using differentiable ODE solvers, we found it very important to use smooth non-linear activation such as Softplus our IoR MLP model otherwise the optimization becomes unstable.
+When using differentiable ODE solvers, we found it very important to use a smooth non-linear activation such as Softplus in our IoR MLP model otherwise the optimization becomes unstable.
  
 
 ### Rendering 
