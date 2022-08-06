@@ -119,9 +119,9 @@ Our method works with a general capturing setup and does not require any calibra
 ### Bounding Box
 Our bounding box (BB) is a rectangular cuboid parameterized by its center $c = (c_x,c_y,c_z)$ and the distances from the center to a face in each dimension $d=(d_x,d_y,d_z)$. 
 For a 3D point $(x,y,z)$ in the space, the bounding box is analytically expressed as follows:
-```math
- 𝐵𝐵(𝒙,𝒚,𝒛)= 1 - 𝑆(𝛽*(d_𝑥−|𝒙−𝑐_𝑥 |)). 𝑆(𝛽*(d_𝑦−|𝒚−𝑐_𝑦 |)) . 𝑆(𝛽*(d_𝑧−|𝒛−𝑐_𝑧 |)). 
- ```
+
+ $$ 𝐵𝐵(𝒙,𝒚,𝒛)= 1 - 𝑆(𝛽*(d_𝑥−|𝒙−𝑐_𝑥 |)). 𝑆(𝛽*(d_𝑦−|𝒚−𝑐_𝑦 |)) . 𝑆(𝛽*(d_𝑧−|𝒛−𝑐_𝑧 |)) $$
+
 
  where 
 $𝑆(𝑥)=\frac{1}{1+𝑒^{−𝑥}}$   is the sigmoid function and $\beta$ is the steepness coefficient. We use $\beta=200$ in our experiments. Using this function, a point inside the box gets a zero value and the points outside get a value close to one. 
@@ -146,12 +146,12 @@ Since we could not utilize a hierarchical sampling in our volume rendering with 
 
 ## Citation
 
-    @article{bemana2022eikonal,
-        title	= {Eikonal Fields for Refractive Novel-View Synthesis},
-        author	= {Bemana, Mojtaba and Myszkowski, Karol and Frisvad, Jeppe Revall and Seidel, Hans-Peter and Ritschel, Tobias},
-        journal	= {arXiv preprint arXiv:2202.00948},
-        year	= {2022},
-        }
+    @inproceedings{bemana2022eikonal,
+        title={Eikonal Fields for Refractive Novel-View Synthesis},
+        author={Bemana, Mojtaba and Myszkowski, Karol and Revall Frisvad, Jeppe and Seidel, Hans-Peter and Ritschel, Tobias},
+        booktitle={Special Interest Group on Computer Graphics and Interactive Techniques Conference Proceedings},
+        pages={1--9},
+        year={2022}
 
 ## Contact
 mbemana@mpi-inf.mpg.de
